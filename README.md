@@ -4,7 +4,7 @@ The project that I plan on doing is a youtube collaboration queue project. This 
 
 # Project Design
 SpringMVC will be one of the main technologies being used. Another would be the Apache Tomcat server. I will also be using Git Bash for
-Unix Shell and command language. Main API being used would be the Youtube API. The project will also be implementing MongoDB or SQL. Maven will also be used in the making of the project. I will also be implementing the IRC for the chatroom function. If that does not work out maybe, using the Discord API or Slack API to do it. The list of technologies can still be changed based on future challenges or problems.
+Unix Shell and command language. Main API being used would be the Youtube API. The project will also be implementing MongoDB or SQL. Will be using database to store the different video urls based on the differen "rooms". The room is stated to be checkpoint 6 - 7. Maven will also be used in the making of the project. I will also be implementing the IRC for the chatroom function. If that does not work out maybe, using the Discord API or Slack API to do it. The list of technologies can still be changed based on future challenges or problems.
 
 # Use Cases
 Use Case 1: Login with Gmail/Youtube account <br />
