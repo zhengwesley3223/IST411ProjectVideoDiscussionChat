@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class URLController {
     
     @GetMapping("/")
-    public String login(Model model){
-        model.addAttribute("user", new User());
+    public String login(){
         return "login";
     }
     
@@ -37,8 +36,13 @@ public class URLController {
 //        return "thankyou";
 //    }
     
-    @RequestMapping(value = "/video")
+    @RequestMapping("/video")
     public String video(){
         return "video";
+    }
+    
+    @RequestMapping("/video2")
+    public String video2(){
+        return "video2";
     }
 }
