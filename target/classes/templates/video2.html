@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <body>
-      <script src="QueueVideos.js"></script>
-      <form name="Add Video">
-          <input type="text" name="VideoURL" id="videoURL"/>
-          <input type="submit" value="add" th:onClick ="'queuevideos:getVideoID();'"/>
-      </form>
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-<!--    <div id="player"></div>-->
-
-<iframe id="ytplayer" type="text/html" width="720" height="405"
-th:src="@{https://www.youtube.com/embed/{url}(url=${queuevideos:getVideos();})}" frameborder="0" allowfullscreen="0">
-</iframe>
-
-  </body>
+    <body>
+        <h1>Input Youtube Video URL</h1>
+<!--        <form>
+            <p>URL: <input type='text' th:field="*{name}"/></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>-->
+        <iframe id="ytplayer" type="text/html" width="720" height="405"
+                th:src="${videourl.getVideoURL()}"
+                frameborder="0" allowfullscreen="0">
+        </iframe>
+        <iframe src="http://webchat.freenode.net?channels=YoutubeVideoDiscussionChat&amp;uio=d4" width="647" height="400"></iframe>
+    </body>    
 </html>

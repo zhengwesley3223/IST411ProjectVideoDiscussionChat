@@ -68,18 +68,16 @@ public class Database {
      * @param zip
      * @param country
      */
-    public void addAddress(String name, String street, String state, String zip, String country) {
+    public void addRoom(String room, int roomID) {
         
-        String sql = "INSERT INTO IST411Lab (Name, Street, State, Zip)"
-                + "VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Room (RoomName, RoomID)"
+                + "VALUES (?,?)";
         
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            pstmt.setString(1, name);
-            pstmt.setString(2, street);
-            pstmt.setString(3, state);
-            pstmt.setString(4, zip);
+            pstmt.setString(1, room);
+            pstmt.setInt(2, roomID);
             
             pstmt.executeUpdate();
             
@@ -88,16 +86,13 @@ public class Database {
         }
     }
     
-        public ArrayList<String> getAddressList() { 
-        ArrayList<String> addressInfo = new ArrayList<String>();;
-        String name = "";
-        String street = "";
-        String state = "";
-        String zip  = "";
+        public ArrayList<String> getRoomList() { 
+        ArrayList<String> roomInfo = new ArrayList<String>();;
+        String roomName = "";
+        String roomID = "";
 
         
-            String sql = "SELECT Name, Street, "
-                        + "State, Zip FROM IST411Lab";//\n ID = " + 1;
+            String sql = "SELECT RoomName, RoomID FROM Room";//\n ID = " + 1;
 
             //Database stores task info in 2D arrayList - arraylist used because dynamicly sized
             try (Connection conn = this.connect();
@@ -106,15 +101,13 @@ public class Database {
 
                   while(rs.next()) {
 
-                      name = rs.getString("Name"); 
-                      street = rs.getString("Street");
-                      state = rs.getString("State");
-                      zip = rs.getString("Zip");
+                      roomName = rs.getString("Name"); 
+                      roomID = rs.getString("Street");
+
                       
-                      addressInfo.add(name);
-                      addressInfo.add(street);
-                      addressInfo.add(state); 
-                      addressInfo.add(zip);
+                      roomInfo.add(roomName);
+                      roomInfo.add(roomID);
+
                       
                   }
 
@@ -122,6 +115,6 @@ public class Database {
                 System.out.println(ex.getMessage());
             }           
             
-        return addressInfo;
+        return roomInfo;
     }
 }

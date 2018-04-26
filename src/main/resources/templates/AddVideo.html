@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Address Form with Spring</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+        <h1>Create A Room</h1>
+        <form action="#" th:action="@{/testURL2}" th:object="${videourl}" method="post">
+            <p>VideoURL: <input required='required' type='text' th:field="*{videoLink}"/></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+</body>
+</html>
