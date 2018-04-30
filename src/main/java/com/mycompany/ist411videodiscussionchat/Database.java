@@ -61,11 +61,11 @@ public class Database {
         return conn;
     }
     
-
     public void addRoom(String room) {
         
         String sql = "INSERT INTO Room (RoomName)"
-                + "VALUES (?)";
+                + "SELECT " + room + "WHERE NOT EXISTS(SELECT RoomName FROM Room "+
+                "WHERE RoomName=\"" + room +"\"";
         
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -79,7 +79,7 @@ public class Database {
         }
     }
     
-        public void addVideo(String room, String videoLink) {
+        public void addVideo(String room, String videoID) {
         
         String sql = "INSERT INTO VideoURL (RoomName, URL)"
                 + "VALUES (?,?)";
@@ -88,7 +88,7 @@ public class Database {
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setString(1, room);
-            pstmt.setString(2, videoLink);
+            pstmt.setString(2, videoID);
             
             pstmt.executeUpdate();
             
@@ -100,6 +100,8 @@ public class Database {
         public ArrayList<String> getRoomList() { 
         ArrayList<String> roomInfo = new ArrayList<String>();;
         String roomName = "";
+        String roomID = "";
+
         
             String sql = "SELECT RoomName FROM Room";//\n ID = " + 1;
 
@@ -121,5 +123,33 @@ public class Database {
             }           
             
         return roomInfo;
+    }
+        
+        public ArrayList<String> getVideoList(String RoomName) { 
+        ArrayList<String> videoArray = new ArrayList<String>();;
+        String roomName = "";
+        String videoIDs = "";
+
+        
+            String sql = "SELECT URL FROM VideoURL WHERE RoomName = \"" + RoomName + "\"";//\n ID = " + 1;
+
+            //Database stores task info in 2D arrayList - arraylist used because dynamicly sized
+            try (Connection conn = this.connect();
+                  Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(sql)) {
+
+                  while(rs.next()) {
+
+                      videoIDs = rs.getString("URL"); 
+                      
+                      videoArray.add(videoIDs);
+                      
+                  }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }           
+            
+        return videoArray;
     }
 }
