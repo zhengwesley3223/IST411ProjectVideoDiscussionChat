@@ -45,9 +45,10 @@ public class URLController {
     public String video2(Model model){
         model.addAttribute("videourl", new VideoURL());
         VideoURL v = new VideoURL();
-        System.out.println(v.getVideoURL());
+        System.out.println("REQUEST /video2 Function");
+        System.out.println("1: " + v.getVideoURL());
         return "video2";
-    }
+    } 
     
     @GetMapping("/CreateRoom")
     public String addressForm(Model model) {
@@ -69,10 +70,23 @@ public class URLController {
     
         @PostMapping("/testURL2")
     public String addressSubmit(@ModelAttribute VideoURL vidURL) {
-        vidURL.setVideoURL();
-        System.out.println("VIDEO URL: " + vidURL.getVideoURL());
-        System.out.println("VIDEO LINK: " + vidURL.getVideoLink());
-        System.out.println("VIDEO ID: " + vidURL.getVideoID(vidURL.getVideoLink()));
+        
         return "thankyou";
+    }
+    
+    @RequestMapping("/video3")
+    @ResponseBody
+    public String video3(){
+        VideoURL vurl = new VideoURL();
+        String url = vurl.getVideoURL();
+        System.out.println(url);
+        StringBuilder responseBuffer = new StringBuilder();
+        responseBuffer
+                .append("<html><body>")
+                .append("<iframe id=\"ytplayer\" type=\"text/html\" width=\"720\" height=\"405\" src=\"" + url + "\" frameborder=\"0\" allowfullscreen=\"0\"></iframe>")
+                .append("<iframe src=\"http://webchat.freenode.net?nick=Monkeu&channels=YoutubeVideoDiscussionChat&amp;uio=d4\" width=\"647\" height=\"400\"></iframe>")
+                .append("</body></html>");
+
+        return responseBuffer.toString();
     }
 }

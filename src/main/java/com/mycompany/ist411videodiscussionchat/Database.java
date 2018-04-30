@@ -61,23 +61,34 @@ public class Database {
         return conn;
     }
     
-        /**
-     * @param name
-     * @param street
-     * @param state
-     * @param zip
-     * @param country
-     */
-    public void addRoom(String room, int roomID) {
+
+    public void addRoom(String room) {
         
-        String sql = "INSERT INTO Room (RoomName, RoomID)"
+        String sql = "INSERT INTO Room (RoomName)"
+                + "VALUES (?)";
+        
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, room);
+            
+            pstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+        public void addVideo(String room, String videoLink) {
+        
+        String sql = "INSERT INTO VideoURL (RoomName, URL)"
                 + "VALUES (?,?)";
         
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setString(1, room);
-            pstmt.setInt(2, roomID);
+            pstmt.setString(2, videoLink);
             
             pstmt.executeUpdate();
             
@@ -89,10 +100,8 @@ public class Database {
         public ArrayList<String> getRoomList() { 
         ArrayList<String> roomInfo = new ArrayList<String>();;
         String roomName = "";
-        String roomID = "";
-
         
-            String sql = "SELECT RoomName, RoomID FROM Room";//\n ID = " + 1;
+            String sql = "SELECT RoomName FROM Room";//\n ID = " + 1;
 
             //Database stores task info in 2D arrayList - arraylist used because dynamicly sized
             try (Connection conn = this.connect();
@@ -101,13 +110,9 @@ public class Database {
 
                   while(rs.next()) {
 
-                      roomName = rs.getString("Name"); 
-                      roomID = rs.getString("Street");
-
+                      roomName = rs.getString("RoomName"); 
                       
                       roomInfo.add(roomName);
-                      roomInfo.add(roomID);
-
                       
                   }
 

@@ -5,10 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-        <h1>Create A Room</h1>
+        <h1>Add YouTube Video</h1>
         <form action="#" th:action="@{/testURL2}" th:object="${videourl}" method="post">
+            <p>List of Rooms: <article th:text='dsa'></article> </p>
+        <p>Room Name: <input required='required' type='text' th:field="*{roomName}"></input></p>
             <p>VideoURL: <input required='required' type='text' th:field="*{videoLink}"/></p>
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 </body>
 </html>
+<!--<p th:text="${}"/>-->

@@ -16,10 +16,6 @@ import javax.persistence.Id;
 public class Room {
     Database db = new Database("VideoDiscussionChatRoom.db");
     String room;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    int roomID;
 
     public Room() {
     }
@@ -33,6 +29,6 @@ public class Room {
     }
     
     public void addRoom() {
-        db.addRoom(room, roomID);
+        db.addRoom(room);
     }
 }

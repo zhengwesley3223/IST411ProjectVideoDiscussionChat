@@ -15,8 +15,10 @@ import java.util.regex.Pattern;
  */
 public class VideoURL {
 
+    Database db = new Database("VideoDiscussionChatRoom.db");
     String videoURL = "https://www.youtube.com/embed/eiXwaP7zSRk?playlist=yBDd5HO_t3M&version;=3";
     String videoLink;
+    String roomName;
     ArrayList<String> videoArray;
 
     public VideoURL() {
@@ -52,8 +54,15 @@ public class VideoURL {
         return "";
     }
     
-//    public void AddToArray(){
-//        videoArray = new ArrayList();
-//        videoArray.add(getVideoID(vid));
-//    }
+    public void setRoomName(String roomname){
+        this.roomName = roomname;
+    }
+    
+    public String getRoomName(){
+        return roomName;
+    }
+    
+    public void addURLDB(){
+        db.addVideo(roomName, getVideoID(videoLink));
+    }
 }
