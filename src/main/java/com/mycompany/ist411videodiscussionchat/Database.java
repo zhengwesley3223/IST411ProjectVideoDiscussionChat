@@ -61,14 +61,25 @@ public class Database {
         return conn;
     }
     
-    public void addRoom(String room) {
+        /**
+     * @param name
+     * @param street
+     * @param state
+     * @param zip
+     * @param country
+     */
+    public void addAddress(String name, String street, String state, String zip, String country) {
         
-        String sql = "INSERT INTO Room (RoomName) VALUES (?)";
+        String sql = "INSERT INTO IST411Lab (Name, Street, State, Zip)"
+                + "VALUES (?,?,?,?)";
         
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            pstmt.setString(1, room);
+            pstmt.setString(1, name);
+            pstmt.setString(2, street);
+            pstmt.setString(3, state);
+            pstmt.setString(4, zip);
             
             pstmt.executeUpdate();
             
@@ -77,31 +88,16 @@ public class Database {
         }
     }
     
-        public void addVideo(String room, String videoID) {
-        
-        String sql = "INSERT INTO VideoURL (RoomName, URL)"
-                + "VALUES (?,?)";
-        
-        try (Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, room);
-            pstmt.setString(2, videoID);
-            
-            pstmt.executeUpdate();
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-    
-        public ArrayList<String> getRoomList() { 
-        ArrayList<String> roomInfo = new ArrayList<String>();;
-        String roomName = "";
-        String roomID = "";
+        public ArrayList<String> getAddressList() { 
+        ArrayList<String> addressInfo = new ArrayList<String>();;
+        String name = "";
+        String street = "";
+        String state = "";
+        String zip  = "";
 
         
-            String sql = "SELECT RoomName FROM Room";//\n ID = " + 1;
+            String sql = "SELECT Name, Street, "
+                        + "State, Zip FROM IST411Lab";//\n ID = " + 1;
 
             //Database stores task info in 2D arrayList - arraylist used because dynamicly sized
             try (Connection conn = this.connect();
@@ -110,37 +106,15 @@ public class Database {
 
                   while(rs.next()) {
 
-                      roomName = rs.getString("RoomName"); 
+                      name = rs.getString("Name"); 
+                      street = rs.getString("Street");
+                      state = rs.getString("State");
+                      zip = rs.getString("Zip");
                       
-                      roomInfo.add(roomName);
-                      
-                  }
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }           
-            
-        return roomInfo;
-    }
-        
-        public ArrayList<String> getVideoList(String RoomName) { 
-        ArrayList<String> videoArray = new ArrayList<String>();;
-        String roomName = "";
-        String videoIDs = "";
-
-        
-            String sql = "SELECT URL FROM VideoURL WHERE RoomName = \"" + RoomName + "\"";//\n ID = " + 1;
-
-            //Database stores task info in 2D arrayList - arraylist used because dynamicly sized
-            try (Connection conn = this.connect();
-                  Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery(sql)) {
-
-                  while(rs.next()) {
-
-                      videoIDs = rs.getString("URL"); 
-                      
-                      videoArray.add(videoIDs);
+                      addressInfo.add(name);
+                      addressInfo.add(street);
+                      addressInfo.add(state); 
+                      addressInfo.add(zip);
                       
                   }
 
@@ -148,6 +122,6 @@ public class Database {
                 System.out.println(ex.getMessage());
             }           
             
-        return videoArray;
+        return addressInfo;
     }
 }
